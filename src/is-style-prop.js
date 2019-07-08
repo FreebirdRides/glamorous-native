@@ -2,7 +2,6 @@ import {
   Animated,
   FlatList,
   Image,
-  ListView,
   ScrollView,
   SectionList,
   Text,
@@ -14,6 +13,8 @@ import {
   View,
 } from 'react-native'
 import {viewStyleProps, textStyleProps} from './style-props'
+
+import ListView from 'deprecated-react-native-listview'
 
 const viewStyleComponents = [
   Animated.Image,

@@ -1,7 +1,6 @@
 import {
   FlatList,
   Image,
-  ListView,
   ScrollView,
   SectionList,
   Text,
@@ -13,6 +12,8 @@ import {
   View,
   ImageBackground,
 } from 'react-native'
+
+import ListView from 'deprecated-react-native-listview'
 
 export const ReactNativeElementMap = {
   Image,

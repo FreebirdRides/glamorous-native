@@ -2,7 +2,6 @@ import React from 'react'
 import {
   FlatList,
   Image,
-  ListView,
   ScrollView,
   SectionList,
   Text,
@@ -17,6 +16,8 @@ import {
 import {shallow} from 'enzyme'
 import renderer from 'react-test-renderer'
 import glamorous from '../'
+
+import ListView from 'deprecated-react-native-listview'
 
 describe('test', () => {
   it('supports static styles', () => {
@@ -35,7 +36,6 @@ describe('test', () => {
     }))
     const mountedActiveStyledView = shallow(<StyledView active height={450} />)
     const mountedInactiveStyledView = shallow(<StyledView />)
-
 
     expect(mountedActiveStyledView.props()).toMatchObject({
       style: [{backgroundColor: 'blue'}],
@@ -60,10 +60,9 @@ describe('rootEl', () => {
       return <Text {...props} />
     }
 
-    const myGlamorousComponentFactory = glamorous(
-      MyComponent,
-      {rootEl: 'Text'},
-    )
+    const myGlamorousComponentFactory = glamorous(MyComponent, {
+      rootEl: 'Text',
+    })
 
     const MyGlamorousComponent = myGlamorousComponentFactory(props => ({
       fontSize: props.big ? 36 : 24,
@@ -90,24 +89,36 @@ describe('default components', () => {
   expect(shallow(<glamorous.SectionList />).find(SectionList)).toBeDefined()
   expect(shallow(<glamorous.Text />).find(Text)).toBeDefined()
   expect(shallow(<glamorous.TextInput />).find(TextInput)).toBeDefined()
-  expect(shallow(<glamorous.TouchableHighlight />)
-    .find(TouchableHighlight)).toBeDefined()
-  expect(shallow(<glamorous.TouchableNativeFeedback />)
-    .find(TouchableNativeFeedback)).toBeDefined()
-  expect(shallow(<glamorous.TouchableOpacity />)
-    .find(TouchableOpacity)).toBeDefined()
-  expect(shallow(<glamorous.TouchableWithoutFeedback />)
-    .find(TouchableWithoutFeedback)).toBeDefined()
+  expect(
+    shallow(<glamorous.TouchableHighlight />).find(TouchableHighlight),
+  ).toBeDefined()
+  expect(
+    shallow(<glamorous.TouchableNativeFeedback />).find(
+      TouchableNativeFeedback,
+    ),
+  ).toBeDefined()
+  expect(
+    shallow(<glamorous.TouchableOpacity />).find(TouchableOpacity),
+  ).toBeDefined()
+  expect(
+    shallow(<glamorous.TouchableWithoutFeedback />).find(
+      TouchableWithoutFeedback,
+    ),
+  ).toBeDefined()
   expect(shallow(<glamorous.View />).find(View)).toBeDefined()
 })
 
 it('styles as properties should have highest priority', () => {
-  expect(renderer.create(
-    <glamorous.View
-      style={{backgroundColor: 'green'}}
-      backgroundColor="blue"
-    />,
-  ).toJSON()).toMatchSnapshot()
+  expect(
+    renderer
+      .create(
+        <glamorous.View
+          style={{backgroundColor: 'green'}}
+          backgroundColor="blue"
+        />,
+      )
+      .toJSON(),
+  ).toMatchSnapshot()
 })
 
 describe('propsAreStyleOverrides', () => {
@@ -116,9 +127,9 @@ describe('propsAreStyleOverrides', () => {
       propsAreStyleOverrides: true,
     })()
     expect(
-      renderer.create(
-        <StyledView backgroundColor="green" nonStyleProp={true} />,
-      ).toJSON(),
+      renderer
+        .create(<StyledView backgroundColor="green" nonStyleProp={true} />)
+        .toJSON(),
     ).toMatchSnapshot()
   })
 })
